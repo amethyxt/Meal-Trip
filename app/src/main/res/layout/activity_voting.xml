@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".VotingActivity">
+
+    <!-- ▼▼▼ (นี่คือโค้ดที่เราเพิ่มเข้ามาครับ) ▼▼▼ -->
+
+    <!-- หัวข้อ -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Vote for POIs"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- ปุ่มดูผลลัพธ์ (เราวางไว้ล่างสุดก่อน) -->
+    <Button
+        android:id="@+id/btn_get_results"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Get Results (Process Trip)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- รายการ POI (RecyclerView) (จะ "ยืด" เต็มพื้นที่ที่เหลือ) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_poi_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/btn_get_results"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:listitem="@layout/item_poi_vote" />
+    <!-- (tools:listitem จะ "ฟ้อง" (ขีดเส้นใต้สีแดง) ในตอนนี้... ไม่ต้องกังวลครับ!
+         เพราะเรา "ยังไม่ได้สร้าง" ไฟล์ `item_poi_vote.xml` (หน้าตาของ 1 รายการ) ครับ) -->
+
+    <!-- ▲▲▲ (โค้ดที่เพิ่ม สิ้นสุดตรงนี้ครับ) ▲▲▲ -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

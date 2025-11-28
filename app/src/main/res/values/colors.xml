@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorSecondary">#03DAC5</color>
+    <color name="bg_light">#F3F4F6</color>
+    <color name="bg_white">#FFFFFF</color>
+    <color name="bg_input">#F9FAFB</color>
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="border_gray">#E5E7EB</color>
+
+    <color name="card_food">#FFCC80</color>
+    <color name="card_cafe">#90CAF9</color>
+    <color name="card_temple">#FFAB91</color>
+    <color name="card_nature">#A5D6A7</color>
+    <color name="card_shopping">#CE93D8</color>
+    <color name="card_culture">#EF9A9A</color>
+</resources>

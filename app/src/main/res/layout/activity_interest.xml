@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Interests"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap to select what you like"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginBottom="32dp"/>
+
+        <TextView
+            android:id="@+id/cardFood"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="🍜 Street Food"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:background="#EEEEEE"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/cardCafe"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="☕ Cafe"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:background="#EEEEEE"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/cardTemple"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="🙏 Temple"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:background="#EEEEEE"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/cardNature"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="🌳 Nature"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:background="#EEEEEE"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/cardShopping"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="🛍️ Shopping"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:background="#EEEEEE"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/cardCulture"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="🏛️ Culture"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:background="#EEEEEE"
+            android:layout_marginBottom="24dp"/>
+
+        <Button
+            android:id="@+id/btnSaveInterest"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Save &amp; Continue"
+            android:textStyle="bold"
+            android:backgroundTint="#6200EE"/>
+
+    </LinearLayout>
+</ScrollView>

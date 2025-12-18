@@ -40,24 +40,25 @@ class CreateTripActivity : AppCompatActivity() {
             return
         }
 
-        // แปลงงบประมาณ
         val budget = budgetStr.toIntOrNull() ?: 0
-
-        // Log ดูค่างบประมาณ
         Log.d("CreateTrip", "Budget sending: $budget")
 
-        // ▼▼▼ กำหนดเงื่อนไข: "ขอร้านอาหารอย่างน้อย 1 ที่" (เพื่อนำทาง Server) ▼▼▼
+        // เงื่อนไข demo: ขอ restaurant อย่างน้อย 1 ที่
         val constraints = mapOf(
             "categories" to listOf(
                 mapOf("type" to "restaurant", "count" to 1)
             )
         )
-        // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
         lifecycleScope.launch {
             try {
-                // 1. สร้างทริป
-                val createRequest = CreateTripRequest(tripName, currentUserId!!, budget, constraints)
+                // 1) สร้างทริป
+                val createRequest = CreateTripRequest(
+                    tripName,
+                    currentUserId!!,
+                    budget,
+                    constraints
+                )
                 val createResponse = RetrofitClient.apiService.createTrip(createRequest)
 
                 if (createResponse.isSuccessful && createResponse.body() != null) {
@@ -65,31 +66,45 @@ class CreateTripActivity : AppCompatActivity() {
                     val inviteCode = tripData.inviteCode
                     val tripId = tripData.id
 
-                    Toast.makeText(this@CreateTripActivity, "Trip Created! Code: $inviteCode", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@CreateTripActivity,
+                        "Trip Created! Code: $inviteCode",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-                    // 2. Auto Join
+                    // 2) Auto join ทริปตัวเอง
                     val joinRequest = JoinTripRequest(inviteCode, currentUserId!!)
                     val joinResponse = RetrofitClient.apiService.joinTrip(joinRequest)
 
                     if (joinResponse.isSuccessful) {
-                        // 3. ไป Lobby
+                        // 3) ไปหน้า Lobby
                         val intent = Intent(this@CreateTripActivity, LobbyActivity::class.java)
                         intent.putExtra("TRIP_ID", tripId)
                         intent.putExtra("USER_ID", currentUserId)
                         intent.putExtra("INVITE_CODE", inviteCode)
                         intent.putExtra("IS_HOST", true)
-
                         startActivity(intent)
                         finish()
                     } else {
-                        Toast.makeText(this@CreateTripActivity, "Failed to join lobby", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@CreateTripActivity,
+                            "Failed to join lobby",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-
                 } else {
-                    Toast.makeText(this@CreateTripActivity, "Failed to create trip", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@CreateTripActivity,
+                        "Failed to create trip",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@CreateTripActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@CreateTripActivity,
+                    "Error: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
                 e.printStackTrace()
             }
         }

@@ -20,6 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Total Score -->
     <TextView
         android:id="@+id/tv_total_score"
         android:layout_width="wrap_content"
@@ -30,6 +31,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:text="Total Score: 15" />
 
+    <!-- Total Cost (ใช้ id เดิม tv_remaining_budget) -->
     <TextView
         android:id="@+id/tv_remaining_budget"
         android:layout_width="wrap_content"
@@ -37,7 +39,19 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_total_score"
-        tools:text="Budget Left: ฿2600" />
+        tools:text="Total Cost: ฿3300" />
+
+    <!-- ⭐ ใหม่: Total Time ทั้งทริป -->
+    <TextView
+        android:id="@+id/tv_total_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Total Time: -"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_total_score"
+        tools:text="Total Time: 3h 0m" />
 
     <Button
         android:id="@+id/btn_back_to_home"
@@ -48,6 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- ขยับ RecyclerView ให้เริ่มใต้ tv_total_time -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_result_list"
         android:layout_width="0dp"
@@ -58,6 +73,7 @@
         app:layout_constraintBottom_toTopOf="@id/btn_back_to_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_total_score"
+        app:layout_constraintTop_toBottomOf="@id/tv_total_time"
         tools:listitem="@layout/item_poi_result" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

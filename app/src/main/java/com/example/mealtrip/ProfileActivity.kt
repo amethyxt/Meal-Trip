@@ -18,28 +18,45 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // "รับ" (Get) USER_ID, USER_NAME, และ USER_EMAIL ที่หน้า Home (HomeActivity) ส่งมาให้
+        // 1) รับค่าจาก Intent ก่อน
         currentUserId = intent.getStringExtra("USER_ID")
         currentUserName = intent.getStringExtra("USER_NAME")
         currentUserEmail = intent.getStringExtra("USER_EMAIL")
 
-        // "แสดงผล" (Display) ข้อมูล User ที่ "รับ" (Get) มา
-        binding.tvUsername.text = "Username: $currentUserName"
-        binding.tvEmail.text = "Email: $currentUserEmail"
+        // 2) fallback จาก SharedPreferences (กันกรณีไม่ได้ส่งมา)
+        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+        if (currentUserId.isNullOrEmpty()) currentUserId = prefs.getString("USER_ID", null)
+        if (currentUserName.isNullOrEmpty()) currentUserName = prefs.getString("USERNAME", null)
+        if (currentUserEmail.isNullOrEmpty()) currentUserEmail = prefs.getString("EMAIL", null)
 
-        // "ดักฟัง" เมื่อปุ่ม "Logout" (btn_logout) ถูกกด
+        // 3) แสดงผลบน UI
+        val name = currentUserName ?: "Unknown user"
+        val email = currentUserEmail ?: "-"
+
+        // name+email ใต้รูป
+        binding.tvUsername.text = name
+        binding.tvEmail.text = email
+
+        // ในกล่อง Account details
+        binding.tvUsernameDetail.text = name
+        binding.tvEmailDetail.text = email
+
+        // 4) ปุ่ม Back (ถ้า layout มี btnBack)
+        // ถ้าโปรเจคยังไม่มีปุ่ม back จริง ๆ จะคอมเมนต์ไว้กันแอปพัง
+        try {
+            binding.btnBack.setOnClickListener { finish() }
+        } catch (_: Exception) {
+            // ไม่มี btnBack ใน XML ก็ไม่เป็นไร
+        }
+
+        // 5) ปุ่ม Logout: ล้าง session + กลับ Main
         binding.btnLogout.setOnClickListener {
-            // "สร้าง" ตั๋ว (Intent) เพื่อ "เปิด" (กลับไป) หน้า MainActivity (หน้า 2 ปุ่ม)
+            prefs.edit().clear().apply()
+
             val intent = Intent(this, MainActivity::class.java)
-
-            // (สำคัญ!) "เพิ่ม" (Add) "ธง" (Flags) 2 อันนี้
-            // ...เพื่อ "ลบ" (Clear) "ประวัติ" (Backstack) (หน้า Home, Profile ฯลฯ) ทั้งหมด
-            // ...และ "เริ่มใหม่" (Restart) ที่หน้า MainActivity
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-            // "เปิด" หน้าใหม่ (และ "ลบ" ทุกอย่าง)
             startActivity(intent)
-            finish() // "ปิด" หน้านี้ (ProfileActivity)
+            finish()
         }
     }
 }

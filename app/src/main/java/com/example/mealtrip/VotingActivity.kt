@@ -9,22 +9,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealtrip.databinding.ActivityVotingBinding
 import com.example.mealtrip.network.PoiItem
-// ▼▼▼ เปลี่ยน Import มาใช้ VoteAdapter ตัวใหม่ ▼▼▼
-import com.example.mealtrip.network.VoteAdapter
-// ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 import com.example.mealtrip.network.RetrofitClient
+import com.example.mealtrip.network.VoteAdapter
 import com.example.mealtrip.network.VoteRequest
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class VotingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVotingBinding
-
-    // ▼▼▼ เปลี่ยนตรงนี้เป็น VoteAdapter ▼▼▼
     private lateinit var voteAdapter: VoteAdapter
 
     private var currentTripId: String? = null
@@ -46,8 +39,6 @@ class VotingActivity : AppCompatActivity() {
             return
         }
 
-        binding.tvTitle.text = if (currentInviteCode != null) "Code: $currentInviteCode" else "Vote POIs"
-
         binding.btnGetResults.setOnClickListener {
             getTripResults()
         }
@@ -56,7 +47,6 @@ class VotingActivity : AppCompatActivity() {
     }
 
     private fun loadRealPoisFromApi() {
-        // ใช้คำค้นหาที่กว้างขึ้น
         val query = "restaurant in Bangkok"
         Toast.makeText(this, "Loading places...", Toast.LENGTH_SHORT).show()
 
@@ -67,7 +57,11 @@ class VotingActivity : AppCompatActivity() {
                     val realPois = response.body()!!
                     setupRecyclerView(realPois)
                 } else {
-                    Toast.makeText(this@VotingActivity, "Failed load POIs: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@VotingActivity,
+                        "Failed load POIs: ${response.code()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } catch (e: Exception) {
                 Log.e("VotingActivity", "API Error", e)
@@ -77,9 +71,9 @@ class VotingActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(poiList: List<PoiItem>) {
-        // ▼▼▼ เปลี่ยนการสร้าง Adapter เป็น VoteAdapter ▼▼▼
+        // 👇 ส่งทั้ง poi เข้าไปให้ callback
         voteAdapter = VoteAdapter(poiList) { poi, newScore ->
-            voteOnPoi(poi.poiId, newScore)
+            voteOnPoi(poi, newScore)
         }
 
         binding.rvPoiList.apply {
@@ -88,14 +82,22 @@ class VotingActivity : AppCompatActivity() {
         }
     }
 
-    private fun voteOnPoi(poiId: String, score: Int) {
+    // 👇 เปลี่ยนให้รับ PoiItem แทน poiId เฉยๆ
+    private fun voteOnPoi(poi: PoiItem, score: Int) {
         lifecycleScope.launch {
             try {
-                val request = VoteRequest(currentTripId!!, currentUserId!!, poiId, score)
+                val request = VoteRequest(
+                    trip_id = currentTripId!!,
+                    user_id = currentUserId!!,
+                    poi_id = poi.poiId,
+                    score = score,
+                    imageUrl = poi.imageUrl        // 👈 แนบ url รูปไปเก็บใน DB
+                )
+
                 val response = RetrofitClient.apiService.submitVote(request)
 
                 if (response.isSuccessful) {
-                    Log.d("DEBUG_TRIP", "Vote Success -> POI: $poiId | Score: $score")
+                    Log.d("DEBUG_TRIP", "Vote Success -> POI: ${poi.poiId} | Score: $score")
                 } else {
                     Log.e("DEBUG_TRIP", "Vote Failed -> ${response.code()}")
                 }
@@ -108,27 +110,35 @@ class VotingActivity : AppCompatActivity() {
     private fun getTripResults() {
         lifecycleScope.launch {
             try {
-                Log.d("DEBUG_TRIP", "------- เริ่มดึงผลลัพธ์ -------")
+                Log.d("DEBUG_TRIP", "⚡ เริ่มดึงผลลัพธ์สำหรับ TripID = $currentTripId")
 
                 val response = RetrofitClient.apiService.getTripResults(currentTripId!!)
 
                 if (response.isSuccessful && response.body() != null) {
                     val results = response.body()!!
 
-                    // ดู Log ข้อมูลที่ได้
-                    Log.d("DEBUG_TRIP", "จำนวนสถานที่: ${results.tripPackage.size}")
+                    val tripPackage = results.tripPackage ?: emptyList()
+                    Log.d("DEBUG_TRIP", "จำนวนสถานที่ที่ server ส่งกลับ = ${tripPackage.size}")
+
+                    val jsonResults = Gson().toJson(tripPackage)
+                    Log.d("DEBUG_TRIP", "ส่ง JSON ไปหน้า Result = $jsonResults")
 
                     val intent = Intent(this@VotingActivity, ResultActivity::class.java)
-                    val jsonResults = Gson().toJson(results.tripPackage)
                     intent.putExtra("TRIP_RESULTS_JSON", jsonResults)
                     startActivity(intent)
-                    finish()
+
                 } else {
+                    Log.e("DEBUG_TRIP", "Server error: ${response.code()}")
                     Toast.makeText(this@VotingActivity, "Server Error", Toast.LENGTH_SHORT).show()
                 }
+
             } catch (e: Exception) {
-                Log.e("DEBUG_TRIP", "Crash: ${e.message}")
-                Toast.makeText(this@VotingActivity, "Error getting results", Toast.LENGTH_SHORT).show()
+                Log.e("DEBUG_TRIP", "Crash: ${e.message}", e)
+                Toast.makeText(
+                    this@VotingActivity,
+                    "Error getting results",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

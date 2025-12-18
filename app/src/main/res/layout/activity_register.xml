@@ -7,6 +7,7 @@
     android:background="@color/bg_light"
     android:padding="24dp">
 
+    <!-- Top bar (Back) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,22 +24,26 @@
             android:contentDescription="Back" />
     </LinearLayout>
 
+    <!-- Title -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create Account"
         android:textSize="28sp"
-        android:textStyle="bold"
         android:textColor="@color/text_primary"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/poppins_semibold" />
 
+    <!-- Subtitle -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Join us to start planning your trip."
         android:textColor="@color/text_secondary"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_regular" />
 
+    <!-- Username -->
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
@@ -46,8 +51,10 @@
         android:background="@drawable/bg_input_field"
         android:hint="Username"
         android:padding="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_regular" />
 
+    <!-- Email -->
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
@@ -56,8 +63,10 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_regular" />
 
+    <!-- Password -->
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
@@ -66,18 +75,24 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="16dp"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_regular" />
 
+    <!-- Register button -->
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Sign Up"
-        android:textStyle="bold"
+        android:text="Register"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_semibold"
         android:backgroundTint="@color/colorPrimary"
         app:cornerRadius="12dp"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="24dp" />
 
+    <!-- Already have account -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,18 +103,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Already have an account? "
-            android:textColor="@color/text_secondary"/>
+            android:textColor="@color/text_secondary"
+            android:fontFamily="@font/poppins_regular" />
 
         <TextView
             android:id="@+id/btnLoginLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/poppins_semibold"
             android:clickable="true"
             android:focusable="true"
-            android:padding="8dp"/>
+            android:padding="8dp" />
     </LinearLayout>
 
 </LinearLayout>

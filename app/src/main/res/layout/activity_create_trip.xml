@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F4F6"
+    android:background="@color/bg_light"
     android:fillViewport="true">
 
     <LinearLayout
@@ -11,111 +12,135 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- Top bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_marginBottom="32dp">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:padding="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_back"
-                android:background="@android:color/transparent"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create New Trip"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#1F2937"
-                android:layout_marginStart="16dp"/>
+                android:contentDescription="Back"
+                app:tint="@color/text_secondary" />
         </LinearLayout>
 
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create New Trip"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set a budget and time for your group."
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Trip name -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trip Name"
+            android:textColor="@color/text_secondary"
             android:textStyle="bold"
-            android:textColor="#374151"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/etTripName"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#FFFFFF"
-            android:padding="16dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_input_field"
             android:hint="e.g. Yaowarat Food Tour"
-            android:textColor="#000000"
-            android:layout_marginBottom="24dp"/>
+            android:padding="16dp"
+            android:layout_marginBottom="20dp" />
 
+        <!-- Budget -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Budget (THB)"
+            android:textColor="@color/text_secondary"
             android:textStyle="bold"
-            android:textColor="#374151"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/etBudget"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#FFFFFF"
-            android:padding="16dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_input_field"
             android:hint="e.g. 2000"
             android:inputType="number"
-            android:textColor="#000000"
-            android:layout_marginBottom="24dp"/>
+            android:padding="16dp"
+            android:layout_marginBottom="20dp" />
 
+        <!-- Time -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Available Time (Hours)"
+            android:textColor="@color/text_secondary"
             android:textStyle="bold"
-            android:textColor="#374151"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/etTime"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#FFFFFF"
-            android:padding="16dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_input_field"
             android:hint="e.g. 4"
             android:inputType="number"
-            android:textColor="#000000"
-            android:layout_marginBottom="32dp"/>
+            android:padding="16dp"
+            android:layout_marginBottom="24dp" />
 
+        <!-- Info card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#E3F2FD"
+            android:orientation="horizontal"
             android:padding="16dp"
-            android:orientation="horizontal">
+            android:background="#EEF2FF"
+            android:layout_marginBottom="24dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ℹ️  We will select places based on your group's preferences."
-                android:textColor="#1565C0"
-                android:textSize="14sp"/>
+                android:text="ℹ️  We'll select places based on your group's preferences."
+                android:textColor="#4F46E5"
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+        <!-- Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
+        <!-- Primary button -->
         <Button
             android:id="@+id/btnCreateLobby"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="56dp"
             android:text="Create &amp; Join Lobby"
+            android:textAllCaps="false"
             android:textStyle="bold"
-            android:backgroundTint="#6200EE"
-            android:layout_marginTop="32dp"/>
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
 
     </LinearLayout>
 </ScrollView>

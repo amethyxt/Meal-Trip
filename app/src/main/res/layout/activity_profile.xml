@@ -1,62 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:padding="32dp"
-    android:background="@color/bg_white">
+    android:background="@color/bg_light"
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Profile"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="48dp"/>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        app:cardCornerRadius="60dp"
-        app:cardElevation="4dp"
-        android:layout_marginBottom="24dp">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher"
-            android:scaleType="centerCrop"
-            android:background="@color/bg_light"/>
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/tv_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Loading..."
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_primary"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:id="@+id/tv_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="user@example.com"
-        android:textSize="16sp"
-        android:textColor="@color/text_secondary"
-        android:layout_marginBottom="48dp"/>
-
-    <Button
-        android:id="@+id/btn_logout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Log Out"
-        android:textColor="#EF4444"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        app:strokeColor="#EF4444"
-        app:cornerRadius="12dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-</LinearLayout>
+        <!-- ✅ Top bar (Back) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_back"
+                app:tint="@color/text_secondary"
+                android:contentDescription="Back" />
+        </LinearLayout>
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Profile"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manage your account and trip settings"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Avatar -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:cardCornerRadius="60dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher"
+                android:scaleType="centerCrop"
+                android:background="@color/bg_light" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Name + email under avatar -->
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading..."
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="user@example.com"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Info card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            android:layout_marginBottom="32dp"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Account details"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tv_username_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading..."
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="16dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F1F1F1"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tv_email_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="user@example.com"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/text_primary" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Logout button -->
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Logout"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="#EF4444"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="#EF4444"
+            app:cornerRadius="16dp"
+            android:layout_marginBottom="8dp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F4F6"
+    android:background="@color/bg_light"
     android:fillViewport="true">
 
     <LinearLayout
@@ -13,78 +13,87 @@
         android:padding="24dp"
         android:gravity="center_horizontal">
 
+        <!-- Top bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_marginBottom="48dp">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="32dp">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:padding="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_back"
-                android:background="@android:color/transparent"/>
+                app:tint="@color/text_secondary"
+                android:contentDescription="Back" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Join a Trip"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#1F2937"
-                android:layout_marginStart="16dp"/>
         </LinearLayout>
 
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Join a Trip"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter the invite code from your friend."
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Emoji / Icon -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="🚪"
-            android:textSize="64sp"
-            android:layout_marginBottom="16dp"/>
+            android:textSize="56sp"
+            android:layout_marginBottom="16dp" />
 
+        <!-- Label -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter Invite Code"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#374151"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ask your friend for the 6-digit code"
+            android:text="Invite Code"
             android:textSize="14sp"
-            android:textColor="#6B7280"
-            android:layout_marginBottom="24dp"/>
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
 
+        <!-- Code input -->
         <EditText
             android:id="@+id/etInviteCode"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_input_field"
+            android:hint="e.g. A7B2X9"
+            android:inputType="textCapCharacters"
             android:padding="16dp"
-            android:hint="e.g. X Y Z 1 2 3"
-            android:textColor="#000000"
-            android:textSize="24sp"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:letterSpacing="0.3"
+            android:letterSpacing="0.25"
             android:textAllCaps="true"
-            android:layout_marginBottom="32dp"/>
+            android:layout_marginBottom="32dp" />
 
+        <!-- Primary button -->
         <Button
             android:id="@+id/btnJoin"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="JOIN TRIP"
+            android:layout_height="56dp"
+            android:text="Join Trip"
+            android:textAllCaps="false"
             android:textStyle="bold"
-            android:backgroundTint="#6200EE"
-            app:cornerRadius="12dp"/>
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary" />
 
     </LinearLayout>
 </ScrollView>

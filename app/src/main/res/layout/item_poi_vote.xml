@@ -5,23 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="4dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"> <ImageView
-        android:id="@+id/iv_poi_image"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:scaleType="centerCrop"
-        android:background="#EEEEEE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@android:drawable/ic_menu_gallery" />
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/iv_poi_image"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="centerCrop"
+            android:background="#EEEEEE"
+            android:contentDescription="POI Image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@android:drawable/ic_menu_gallery" />
 
         <TextView
             android:id="@+id/tv_poi_name"
@@ -29,14 +33,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="8dp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_poi_image"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_poi_image"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="Restaurant Name" />
 
         <TextView
@@ -45,9 +49,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@id/tv_poi_name"
+            android:textColor="@color/text_secondary"
             app:layout_constraintStart_toStartOf="@id/tv_poi_name"
+            app:layout_constraintEnd_toEndOf="@id/tv_poi_name"
             app:layout_constraintTop_toBottomOf="@id/tv_poi_name"
             tools:text="restaurant • ฿300" />
 
@@ -55,17 +59,15 @@
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:numStars="5"
             android:stepSize="1"
             android:rating="0"
             android:isIndicator="false"
             android:progressTint="#FFC107"
             android:secondaryProgressTint="#FFC107"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:transformPivotX="0dp"
-            android:transformPivotY="0dp"
+            android:scaleX="0.85"
+            android:scaleY="0.85"
             app:layout_constraintStart_toStartOf="@id/tv_poi_details"
             app:layout_constraintTop_toBottomOf="@id/tv_poi_details" />
 

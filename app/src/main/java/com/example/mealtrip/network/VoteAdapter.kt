@@ -11,11 +11,17 @@ class VoteAdapter(
     private val onVoteClick: (PoiItem, Int) -> Unit
 ) : RecyclerView.Adapter<VoteAdapter.VoteViewHolder>() {
 
-    inner class VoteViewHolder(val binding: ItemPoiVoteBinding) : RecyclerView.ViewHolder(binding.root)
+    // ✅ เก็บคะแนนที่ user โหวตไว้ (key = id หรือ name)
+    private val voteMap = mutableMapOf<String, Int>()
+
+    inner class VoteViewHolder(val binding: ItemPoiVoteBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoteViewHolder {
         val binding = ItemPoiVoteBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
         return VoteViewHolder(binding)
     }
@@ -23,34 +29,32 @@ class VoteAdapter(
     override fun onBindViewHolder(holder: VoteViewHolder, position: Int) {
         val poi = poiList[position]
 
-        holder.binding.apply {
-            // 1. ใส่ชื่อ
-            tvPoiName.text = poi.name
+        // ✅ สร้าง key แบบไม่ใช้ poi.id (เพราะไม่มีใน model)
+        val key = "${poi.name}_${poi.type}_${poi.cost}"
 
-            // ✅ แก้ตรงนี้: เอาเครื่องหมาย // ออก เพื่อให้มันทำงานครับ
+        holder.binding.apply {
+            tvPoiName.text = poi.name
             tvPoiDetails.text = "${poi.type} • ฿${poi.cost}"
 
-            // 2. ใส่รูป
-            Glide.with(holder.itemView.context)
+            Glide.with(ivPoiImage.context)
                 .load(poi.imageUrl)
                 .centerCrop()
                 .into(ivPoiImage)
 
-            // 3. ล้าง Listener เก่าออกก่อน
+            // ✅ ดึงคะแนนเดิม ถ้าไม่เคยให้คะแนนจะเป็น 0
+            val savedScore = voteMap[key] ?: 0
+
             ratingBar.setOnRatingBarChangeListener(null)
+            ratingBar.rating = savedScore.toFloat()
 
-            // 4. ดึงค่าคะแนนเดิมมาโชว์
-            ratingBar.rating = poi.myScore.toFloat()
-
-            // 5. ดักจับการกดดาว
-            ratingBar.setOnRatingBarChangeListener { _, rating, fromUser ->
-                if (fromUser) {
-                    poi.myScore = rating.toInt()
-                    onVoteClick(poi, rating.toInt())
-                }
+            ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
+                voteMap[key] = rating.toInt()
             }
         }
     }
 
-    override fun getItemCount() = poiList.size
+    override fun getItemCount(): Int = poiList.size
+
+    // ✅ เอาไว้ให้หน้า VotingActivity ดึงคะแนนทั้งหมดตอนกด "Get Results"
+    fun getVotes(): Map<String, Int> = voteMap
 }

@@ -3,7 +3,7 @@ package com.example.mealtrip
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.TextView // ใช้ TextView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mealtrip.databinding.ActivityInterestBinding
@@ -17,8 +17,10 @@ import retrofit2.Response
 class InterestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityInterestBinding
+
     private var currentUserId: String? = null
     private var currentUserName: String? = null
+
     private val selectedInterests = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +29,29 @@ class InterestActivity : AppCompatActivity() {
             binding = ActivityInterestBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
-            currentUserId = intent.getStringExtra("USER_ID")
-            currentUserName = intent.getStringExtra("USER_NAME")
+            // -----------------------------
+            // 1) ดึง user จาก SharedPreferences + fallback จาก Intent
+            // -----------------------------
+            val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+            currentUserId = prefs.getString("USER_ID", null)
+            currentUserName = prefs.getString("USERNAME", null)
 
-            // ส่ง TextView เข้าไป
+            if (currentUserId == null) {
+                currentUserId = intent.getStringExtra("USER_ID")
+            }
+            if (currentUserName == null) {
+                currentUserName = intent.getStringExtra("USER_NAME")
+            }
+
+            if (currentUserId == null) {
+                Toast.makeText(this, "ไม่พบข้อมูลผู้ใช้ กรุณา Login ใหม่", Toast.LENGTH_SHORT).show()
+                finish()
+                return
+            }
+
+            // -----------------------------
+            // 2) ผูก card ต่าง ๆ
+            // -----------------------------
             setupCard(binding.cardFood, "street_food")
             setupCard(binding.cardCafe, "cafe")
             setupCard(binding.cardTemple, "temple")
@@ -38,9 +59,13 @@ class InterestActivity : AppCompatActivity() {
             setupCard(binding.cardShopping, "shopping")
             setupCard(binding.cardCulture, "culture")
 
+            // -----------------------------
+            // 3) ปุ่ม Save
+            // -----------------------------
             binding.btnSaveInterest.setOnClickListener {
                 savePreferences()
             }
+
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, "Error UI: ${e.message}", Toast.LENGTH_LONG).show()
@@ -65,28 +90,55 @@ class InterestActivity : AppCompatActivity() {
     }
 
     private fun savePreferences() {
-        if (currentUserId == null) return
+        val userId = currentUserId ?: return
+
+        if (selectedInterests.isEmpty()) {
+            Toast.makeText(this, "เลือกความสนใจก่อนนะ", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val preferencesList = selectedInterests.toList()
         val request = PreferencesRequest(preferencesList)
 
-        RetrofitClient.apiService.savePreferences(currentUserId!!, request)
+        RetrofitClient.apiService.savePreferences(userId, request)
             .enqueue(object : Callback<UserResponse> {
                 override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(this@InterestActivity, "บันทึกเรียบร้อย!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@InterestActivity,
+                            "บันทึกความชอบเรียบร้อย!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        // -----------------------------
+                        // ✅ อัปเดต SharedPreferences ด้วย
+                        // -----------------------------
+                        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+                        prefs.edit()
+                            .putString("PREFERENCES", preferencesList.joinToString(","))
+                            .apply()
+
+                        // ไปหน้า Home
                         val intent = Intent(this@InterestActivity, HomeActivity::class.java)
-                        intent.putExtra("USER_ID", currentUserId)
-                        intent.putExtra("USER_NAME", currentUserName)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish()
                     } else {
-                        Toast.makeText(this@InterestActivity, "บันทึกไม่สำเร็จ", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@InterestActivity,
+                            "บันทึกไม่สำเร็จ (${response.code()})",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    Toast.makeText(this@InterestActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@InterestActivity,
+                        "Error: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }

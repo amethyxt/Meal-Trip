@@ -7,6 +7,7 @@
     android:background="@color/bg_light"
     android:padding="24dp">
 
+    <!-- Top bar / Back button -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,22 +24,31 @@
             android:contentDescription="Back" />
     </LinearLayout>
 
+    <!-- Title -->
     <TextView
+        android:id="@+id/tvLoginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome Back!"
-        android:textSize="28sp"
-        android:textStyle="bold"
+        android:textSize="24sp"
         android:textColor="@color/text_primary"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:textStyle="normal" />
 
+    <!-- Subtitle -->
     <TextView
+        android:id="@+id/tvLoginSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign in to continue"
         android:textColor="@color/text_secondary"
-        android:layout_marginBottom="32dp"/>
+        android:textSize="14sp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_regular"
+        android:textStyle="normal" />
 
+    <!-- Email -->
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
@@ -47,8 +57,10 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_regular" />
 
+    <!-- Password -->
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
@@ -57,18 +69,24 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="16dp"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_regular" />
 
+    <!-- Login button -->
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Login"
-        android:textStyle="bold"
+        android:layout_height="56dp"
+        android:text="LOGIN"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/white"
         android:backgroundTint="@color/colorPrimary"
         app:cornerRadius="12dp"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="24dp" />
 
+    <!-- Register link -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,18 +97,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Don't have an account? "
-            android:textColor="@color/text_secondary"/>
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular" />
 
         <TextView
             android:id="@+id/btnRegisterLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register"
-            android:textStyle="bold"
+            android:textSize="14sp"
             android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/poppins_semibold"
+            android:textStyle="normal"
             android:clickable="true"
             android:focusable="true"
-            android:padding="8dp"/>
+            android:padding="8dp" />
     </LinearLayout>
 
 </LinearLayout>

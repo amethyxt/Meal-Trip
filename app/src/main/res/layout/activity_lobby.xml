@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F4F6"
+    android:background="@color/bg_light"
     android:fillViewport="true">
 
     <LinearLayout
@@ -12,48 +12,74 @@
         android:padding="24dp"
         android:gravity="center_horizontal">
 
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trip Lobby"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share this code with your friends to join."
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Room code label -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ROOM CODE"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:textColor="#6B7280"
-            android:letterSpacing="0.1"
-            android:layout_marginTop="32dp"/>
+            android:textColor="@color/text_secondary"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="4dp" />
 
+        <!-- Room code -->
         <TextView
             android:id="@+id/tvRoomCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="..."
-            android:textSize="48sp"
+            android:text="------"
+            android:textSize="40sp"
             android:textStyle="bold"
-            android:textColor="#6200EE"
-            android:layout_marginBottom="8dp"/>
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="8dp" />
 
+        <!-- Status text -->
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Waiting for host..."
             android:textSize="14sp"
-            android:textColor="#9E9E9E"
-            android:layout_marginBottom="32dp"/>
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="24dp" />
 
+        <!-- Members card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#FFFFFF"
+            android:background="@android:color/white"
             android:padding="16dp"
-            android:elevation="4dp">
+            android:elevation="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
 
                 <TextView
                     android:id="@+id/tvMemberCount"
@@ -61,9 +87,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Members (1)"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="#1F2937"/>
+                    android:textColor="@color/text_primary" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -75,43 +101,53 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:paddingTop="4dp"
-                    android:paddingBottom="4dp"/>
+                    android:paddingBottom="4dp"
+                    android:layout_marginStart="8dp"
+                    android:letterSpacing="0.08" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#E5E7EB"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="12dp" />
 
+            <!-- Member list text (Host + Friends) -->
             <TextView
                 android:id="@+id/tvMemberList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Loading..."
-                android:textSize="16sp"
-                android:textColor="#374151"
-                android:lineSpacingExtra="8dp"/>
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:lineSpacingExtra="6dp" />
 
             <ProgressBar
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="24dp"
-                android:indeterminateTint="#6200EE"/>
-
+                android:layout_marginTop="16dp"
+                android:indeterminateTint="@color/colorPrimary" />
         </LinearLayout>
 
-        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+        <!-- Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
+        <!-- Start voting button -->
         <Button
             android:id="@+id/btnStartVoting"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="56dp"
             android:text="Start Voting 🚀"
+            android:textAllCaps="false"
             android:textStyle="bold"
-            android:backgroundTint="#6200EE"
-            android:layout_marginTop="32dp"/>
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
 
     </LinearLayout>
 </ScrollView>

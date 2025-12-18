@@ -2,7 +2,6 @@ package com.example.mealtrip
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealtrip.databinding.ActivityResultBinding
@@ -21,53 +20,44 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupRecyclerView()
-        loadData()
+        val json = intent.getStringExtra("TRIP_RESULTS_JSON")
 
-        binding.btnBackToHome.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-            finish()
-        }
-    }
+        val listType = object : TypeToken<List<PoiResult>>() {}.type
+        val tripPackage: List<PoiResult> = if (!json.isNullOrBlank()) {
+            try { Gson().fromJson(json, listType) } catch (e: Exception) { emptyList() }
+        } else emptyList()
 
-    private fun setupRecyclerView() {
-        resultAdapter = ResultAdapter(emptyList())
+        resultAdapter = ResultAdapter(tripPackage)
         binding.rvResultList.apply {
             layoutManager = LinearLayoutManager(this@ResultActivity)
             adapter = resultAdapter
         }
-    }
 
-    private fun loadData() {
-        val jsonResults = intent.getStringExtra("TRIP_RESULTS_JSON")
+        val totalScore = tripPackage.sumOf { it.score }
+        val totalCost = tripPackage.sumOf { it.cost }
 
-        if (!jsonResults.isNullOrEmpty()) {
-            try {
-                val type = object : TypeToken<List<PoiResult>>() {}.type
-                val results: List<PoiResult> = Gson().fromJson(jsonResults, type)
+        binding.tvTotalScore.text = "Total Score: $totalScore ★"
+        binding.tvRemainingBudget.text = "Total Cost: ฿$totalCost"
 
-                // คำนวณยอดรวม
-                val totalScore = results.sumOf { it.score }
-                val totalCost = results.sumOf { it.cost }
+        // ✅ DONE (BACK TO HOME)
+        binding.btnBackToHome.setOnClickListener {
 
-                binding.tvTotalScore.text = "Total Score: $totalScore ★"
-                binding.tvRemainingBudget.text = "Total Cost: ฿$totalCost"
+            // 1) เอา USER_ID จาก Intent ก่อน
+            var userId = intent.getStringExtra("USER_ID")
+            var userName = intent.getStringExtra("USER_NAME")
 
-                if (results.isNotEmpty()) {
-                    resultAdapter = ResultAdapter(results)
-                    binding.rvResultList.adapter = resultAdapter
-                } else {
-                    // ถ้า Server ยังส่ง 0 มา จะขึ้นเตือนตรงนี้
-                    Toast.makeText(this, "No matching places found from Server.", Toast.LENGTH_LONG).show()
-                }
+            // 2) ถ้าไม่มี ค่อย fallback ไป prefs
+            val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+            if (userId.isNullOrBlank()) userId = prefs.getString("USER_ID", null)
+            if (userName.isNullOrBlank()) userName = prefs.getString("USERNAME", null)
 
-            } catch (e: Exception) {
-                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+            val homeIntent = Intent(this, HomeActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                putExtra("USER_ID", userId)
+                putExtra("USER_NAME", userName)
             }
-        } else {
-            binding.tvTotalScore.text = "No Data"
+            startActivity(homeIntent)
+            finish()
         }
     }
 }

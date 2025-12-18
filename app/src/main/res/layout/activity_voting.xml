@@ -5,35 +5,51 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="@color/bg_light"
+    android:padding="24dp"
     tools:context=".VotingActivity">
 
-    <!-- ▼▼▼ (นี่คือโค้ดที่เราเพิ่มเข้ามาครับ) ▼▼▼ -->
-
-    <!-- หัวข้อ -->
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Vote for POIs"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- ปุ่มดูผลลัพธ์ (เราวางไว้ล่างสุดก่อน) -->
-    <Button
-        android:id="@+id/btn_get_results"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Get Results (Process Trip)"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <!-- Top bar: back + title -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_back"
+        app:tint="@color/text_secondary"
+        android:contentDescription="Back"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- รายการ POI (RecyclerView) (จะ "ยืด" เต็มพื้นที่ที่เหลือ) -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Vote for Places"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/text_primary"
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Rate places to build your trip"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/text_secondary"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- RecyclerView: list of POIs -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_poi_list"
         android:layout_width="0dp"
@@ -41,14 +57,29 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
         app:layout_constraintBottom_toTopOf="@id/btn_get_results"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_poi_vote" />
-    <!-- (tools:listitem จะ "ฟ้อง" (ขีดเส้นใต้สีแดง) ในตอนนี้... ไม่ต้องกังวลครับ!
-         เพราะเรา "ยังไม่ได้สร้าง" ไฟล์ `item_poi_vote.xml` (หน้าตาของ 1 รายการ) ครับ) -->
 
-    <!-- ▲▲▲ (โค้ดที่เพิ่ม สิ้นสุดตรงนี้ครับ) ▲▲▲ -->
+    <!-- Bottom button -->
+    <Button
+        android:id="@+id/btn_get_results"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="Get Results (Process Trip)"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins_semibold"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"
+        app:cornerRadius="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -66,7 +66,8 @@
                 android:layout_height="match_parent"
                 android:src="@mipmap/ic_launcher"
                 android:scaleType="centerCrop"
-                android:background="@color/bg_light" />
+                android:background="@color/bg_light"
+                android:contentDescription="Profile image" />
         </androidx.cardview.widget.CardView>
 
         <!-- Name + email under avatar -->
